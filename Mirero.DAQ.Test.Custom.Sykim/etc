@@ -1,0 +1,5 @@
+insert into recipe.recipe_worker(id, recipe_type, server_id, cpu_count, cpu_memory, gpu_count, gpu_memory, properties, description) 
+values ('worker1', 'gpu', 'server1',1,1,1,1,'{ "address" : "서울특별시"}','test');
+
+insert into recipe.server(id, address, os_type, os_version, cpu_count, cpu_memory, gpu_name, gpu_count, gpu_memory) 
+values ('server1', '198.24.10.0/24', 'type1', 'version1', 1, 1, 'gpuname', 1,1);
