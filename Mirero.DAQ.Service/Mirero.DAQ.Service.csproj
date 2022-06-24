@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Mirero.DAQ.Application.Account\Mirero.DAQ.Application.Account.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Application.Dataset\Mirero.DAQ.Application.Dataset.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Application.Gds\Mirero.DAQ.Application.Gds.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Application.Inference\Mirero.DAQ.Application.Inference.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Application.Update\Mirero.DAQ.Application.Update.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Application.Workflow\Mirero.DAQ.Application.Workflow.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Infrastructure\Mirero.DAQ.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.2" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="10.4.0" />
+      <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+      <PackageReference Include="Mapster" Version="7.3.0" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\Inference\" />
+    </ItemGroup>
+
+</Project>
