@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+	<ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="3.1.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="DotNet.Testcontainers" Version="1.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Mirero.DAQ.Domain\Mirero.DAQ.Domain.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Infrastructure\Mirero.DAQ.Infrastructure.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Service\Mirero.DAQ.Service.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Setting\Mirero.DAQ.Setting.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="sql\inference-db.sql" />
+      <EmbeddedResource Include="sql\seed\workflow-server-seed.sql" />
+      <EmbeddedResource Include="sql\seed\workflow-volume-seed.sql" />
+      <EmbeddedResource Include="sql\account-db.sql" />
+      <EmbeddedResource Include="sql\dataset-db.sql" />
+      <EmbeddedResource Include="sql\seed\workflow-worker-seed.sql" />
+      <EmbeddedResource Include="sql\seed\workflow-workflow-seed.sql" />
+      <EmbeddedResource Include="sql\seed\workflow-workflow-version-seed.sql" />
+      <EmbeddedResource Include="sql\workflow-db.sql" />
+      <EmbeddedResource Include="sql\gds-db.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="sql\seed\" />
+    </ItemGroup>
+
+</Project>

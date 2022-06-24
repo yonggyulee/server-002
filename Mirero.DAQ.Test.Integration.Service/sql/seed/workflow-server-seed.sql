@@ -1,0 +1,2 @@
+INSERT INTO workflow.server (id, address, os_type, os_version, cpu_count, cpu_memory, gpu_name, gpu_count, gpu_memory, properties, description)
+VALUES ('TestServer', '192.168.70.32', 'os', '1.0', 100, 1000000, 'gpu', 100, 1000000, NULL, NULL);

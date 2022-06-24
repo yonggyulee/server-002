@@ -1,0 +1,5 @@
+insert into account.user (id, password, name, department, email, register_date, enabled, lockout_end, access_failed_count, last_password_changed_date, properties, description, group_id, role_id)
+values  ('admin', 'AdfM9c3w3vSZpWEMtowu4gxsAutCr9GsD1nrGsIJXS4=', '관리자', 'Developer', null, '2022-04-04 10:24:45.926518 +00:00', true, null, 0, '2022-04-04 10:24:45.926518 +00:00', null, null, 'SUPER', 'SuperAdministrator'),
+        ('group_admin', 'AdfM9c3w3vSZpWEMtowu4gxsAutCr9GsD1nrGsIJXS4=', '그룹장', 'Operator', null, '2022-04-04 10:24:45.926519 +00:00', true, null, 0, '2022-04-04 10:24:45.926519 +00:00', null, null, 'SRD', 'GroupAdministrator'),
+        ('manager', 'AdfM9c3w3vSZpWEMtowu4gxsAutCr9GsD1nrGsIJXS4=', '유지보수', 'Manager', null, '2022-04-04 10:24:45.926519 +00:00', true, null, 0, '2022-04-04 10:24:45.926519 +00:00', null, null, 'MEMORY', 'Maintainer'),
+        ('gildong', 'AdfM9c3w3vSZpWEMtowu4gxsAutCr9GsD1nrGsIJXS4=', '홍길동', 'Developer', null, '2022-04-04 10:24:45.926519 +00:00', true, null, 0, '2022-04-04 10:24:45.926519 +00:00', null, null, 'FOUNDRY', 'Developer');
