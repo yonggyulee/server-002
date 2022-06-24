@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
+using MapsterMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Mirero.DAQ.Domain.Account.Entities;
+using Mirero.DAQ.Domain.Common.Data;
+using Mirero.DAQ.Infrastructure.Database.Account;
+
+namespace Mirero.DAQ.Application.Account.Handlers.User.ResetUserPrivilege
+{
+    public class ResetUserPrivilegeHandler : IRequestHandler<ResetUserPrivilegeCommand, Empty>
+    {
+        private readonly ILogger _logger;
+        private readonly IMapper _mapper;
+        private readonly AccountDbContextPostgreSQL _dbContext;
+
+        public ResetUserPrivilegeHandler(ILogger<ResetUserPrivilegeHandler> logger, IMapper mapper,
+            IDbContextFactory<AccountDbContextPostgreSQL> dbContextFactory)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _dbContext = dbContextFactory?.CreateDbContext() ?? throw new ArgumentNullException(nameof(dbContextFactory));
+        }
+
+        public async Task<Empty> Handle(ResetUserPrivilegeCommand command, CancellationToken cancellationToken)
+        {
+            var request = command.Request;
+            var resetUser = _dbContext.UserPrivileges.Where(up => up.UserId == request.UserId).ToList()
+                            ?? throw new Exception($"{request.UserId} doesn't exist.");
+            _dbContext.UserPrivileges.RemoveRange(resetUser);
+            var selectedUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
+
+            var userRolePrivileges = _dbContext.RolePrivileges
+                .Where(rp => rp.RoleId == selectedUser.RoleId)
+                .Select(rp => rp.PrivilegeId)
+                .ToList();
+
+            var userPrivileges = userRolePrivileges
+                .Select(p => { return _mapper.From((request.UserId, p)).AdaptToType<UserPrivilege>(); });
+
+            await _dbContext.UserPrivileges.AddRangeAsync(userPrivileges, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return new Empty();
+        }
+    }
+}
