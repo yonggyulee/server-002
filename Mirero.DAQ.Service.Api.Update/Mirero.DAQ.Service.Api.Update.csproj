@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Mirero.DAQ.Service\Mirero.DAQ.Service.csproj" />
+      <ProjectReference Include="..\Mirero.DAQ.Setting\Mirero.DAQ.Setting.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\mpp\default\default\MPP_2022.05.03.1_full.exe" />
+      <_ContentIncludedByDefault Remove="wwwroot\mpp\default\default\MPP_2022.05.03.1_light.exe" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="update.db" />
+    </ItemGroup>
+
+</Project>
