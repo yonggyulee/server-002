@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package mirero.daq.domain.dataset.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Dataset.Protos.V1";
+
+service ClassCodeService {  
+  // ClassCodeSet
+  rpc ListClassCodeSets(ListClassCodeSetsRequest) returns (ListClassCodeSetsResponse) {}
+  rpc GetClassCodeSet(GetClassCodeSetRequest) returns (ClassCodeSet) {}
+  rpc CreateClassCodeSet(CreateClassCodeSetRequest) returns (ClassCodeSet) {}
+  rpc UpdateClassCodeSet(UpdateClassCodeSetRequest) returns (ClassCodeSet) {}
+  rpc DeleteClassCodeSet(DeleteClassCodeSetRequest) returns (ClassCodeSet) {}
+
+  // ClassCode
+  rpc ListClassCodes(ListClassCodesRequest) returns (ListClassCodesResponse) {}
+  rpc GetClassCode(GetClassCodeRequest) returns (ClassCode) {}
+  rpc CreateClassCode(CreateClassCodeRequest) returns (ClassCode) {}
+  rpc UpdateClassCode(UpdateClassCodeRequest) returns (ClassCode) {}
+  rpc DeleteClassCode(DeleteClassCodeRequest) returns (ClassCode) {}
+  rpc AddClassCodeReferenceImage(ClassCodeReferenceImage) returns (ClassCodeReferenceImage) {}
+  rpc DeleteClassCodeReferenceImage(DeleteClassCodeReferenceImageRequest) returns (ClassCodeReferenceImage) {}
+}
+
+// ClassCodeSet
+message ClassCodeSet {
+  int64 id = 1; // Output Only
+  string title = 2;
+  string task = 3;
+  string directory_name = 4;
+  google.protobuf.Timestamp create_date = 5; // Output Only
+  google.protobuf.Timestamp update_date = 6; // Output Only
+  string create_user = 7;
+  string update_user = 8;
+  google.protobuf.StringValue properties = 9;
+  google.protobuf.StringValue description = 10;
+  string volume_id = 11;
+  repeated ClassCode class_codes = 12;
+}
+
+message ListClassCodeSetsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  bool with_buffer = 2;
+  double lock_timeout_sec = 3;
+}
+
+message ListClassCodeSetsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ClassCodeSet class_code_sets = 2;
+}
+
+message GetClassCodeSetRequest {
+  int64 class_code_set_id = 1;
+}
+
+message CreateClassCodeSetRequest {
+	string title = 2;
+	string task = 3;
+	string directory_name = 4;
+	google.protobuf.StringValue properties = 9;
+	google.protobuf.StringValue description = 10;
+	string volume_id = 11;
+}
+
+message UpdateClassCodeSetRequest {
+	int64 id = 1;
+	string title = 2;
+	string task = 3;
+	string directory_name = 4;
+	google.protobuf.StringValue properties = 9;
+	google.protobuf.StringValue description = 10;
+	string volume_id = 11;
+	double lock_timeout_sec = 12;
+}
+
+message DeleteClassCodeSetRequest {
+  int64 class_code_set_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+// ClassCode
+message ClassCode {
+  int64 id = 1; // Output Only
+  string name = 2;
+  int32 code = 3;
+  google.protobuf.Timestamp create_date = 4; // Output Only
+  google.protobuf.Timestamp update_date = 5; // Output Only
+  string create_user = 6;
+  string update_user = 7;
+  google.protobuf.StringValue properties = 8;
+  google.protobuf.StringValue description = 9;
+  int64 class_code_set_id = 10;
+  repeated ClassCodeReferenceImage class_code_reference_images = 11;
+}
+
+message ListClassCodesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  bool with_thumbnail = 2;
+  bool with_buffer = 3;
+  double lock_timeout_sec = 12;
+}
+
+message ListClassCodesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ClassCode class_codes = 2;
+}
+
+message GetClassCodeRequest {
+  int64 class_code_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+message CreateClassCodeRequest{
+	string name = 2;
+	int32 code = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	int64 class_code_set_id = 10;
+	repeated ClassCodeReferenceImage class_code_reference_images = 11;
+	double lock_timeout_sec = 12;
+}
+
+message UpdateClassCodeRequest {
+	int64 id = 1;
+	string name = 2;
+	int32 code = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	int64 class_code_set_id = 10;
+	repeated ClassCodeReferenceImage class_code_reference_images = 11;
+	double lock_timeout_sec = 12;
+}
+
+message DeleteClassCodeRequest {
+  int64 class_code_id = 1;
+  bool cascade = 2;     // TODO: 삭제시 gt json data도 반영할 것인지 여부
+  double lock_timeout_sec = 12;
+}
+
+// ClassCodeReferenceImage
+message ClassCodeReferenceImage {
+  int64 id = 1; // Output Only
+  string filename = 2;
+  string extension = 3;
+  google.protobuf.BytesValue buffer = 4;
+  google.protobuf.StringValue description = 5;
+  int64 class_code_set_id = 6;
+  int64 class_code_id = 7;
+}
+
+message ListClassCodeReferenceImagesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListClassCodeReferenceImagesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ClassCodeReferenceImage class_code_reference_images = 2;
+}
+
+message GetClassCodeReferenceImageRequest {
+  int64 class_code_reference_image_id = 1;
+}
+
+message DeleteClassCodeReferenceImageRequest {
+  int64 class_code_reference_image_id = 1;
+  double lock_timeout_sec = 12;
+}

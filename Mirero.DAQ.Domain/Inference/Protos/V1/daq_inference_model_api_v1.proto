@@ -1,0 +1,194 @@
+﻿syntax = "proto3";
+
+package mirero.daq.domain.inference.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Inference.Protos.V1";
+
+service ModelService {
+	// Model
+	rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
+	rpc CreateModel(CreateModelRequest) returns (Model) {}
+	rpc UpdateModel(UpdateModelRequest) returns (Model) {}
+	rpc DeleteModel(DeleteModelRequest) returns (google.protobuf.Empty) {}
+	rpc SetDefaultModelVersion(SetDefaultModelVersionRequest) returns (google.protobuf.Empty) {}
+	rpc GetDefaultModelVersion(GetDefaultModelVersionRequest) returns (ModelVersion) {}
+
+	// ModelVersion
+	rpc ListModelVersions(ListModelVersionsRequest) returns (ListModelVersionsResponse) {}
+	rpc CreateModelVersion(CreateModelVersionRequest) returns (ModelVersion) {}
+	rpc UploadModelVersionStream(stream UploadModelVersionRequest) returns (google.protobuf.Empty) {}
+	rpc DownloadModelVersionStream(DownloadModelVersionRequest) returns (stream DownloadModelVersionResponse) {}
+	rpc UpdateModelVersion(UpdateModelVersionRequest) returns (ModelVersion) {}
+	rpc DeleteModelVersion(DeleteModelVersionRequest) returns (google.protobuf.Empty) {}
+
+	rpc LoadModelVersion(LoadModelRequest) returns (LoadModelResponse) {}
+	rpc UnloadModelVersion(UnloadModelVersionRequest) returns (google.protobuf.Empty) {}
+}
+
+// Model
+message Model {
+	int64 id = 1;
+	string volume_id = 2;
+	string task_name = 3;
+	string network_name = 4;
+	string model_name = 5;
+	google.protobuf.StringValue properties = 6;
+	google.protobuf.StringValue description = 7;
+}
+
+message ListModelsRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListModelsResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Model models = 2;
+}
+
+message CreateModelRequest{
+	int64 id = 1;
+	string volume_id = 2;
+	string task_name = 3;
+	string network_name = 4;
+	string model_name = 5;
+	google.protobuf.StringValue properties = 6;
+	google.protobuf.StringValue description = 7;
+}
+
+message UpdateModelRequest{
+	int64 id = 1;
+	string volume_id = 2;
+	string task_name = 3;
+	string network_name = 4;
+	string model_name = 5;
+	google.protobuf.StringValue properties = 6;
+	google.protobuf.StringValue description = 7;
+	double lock_timeout_sec = 8;
+}
+
+message DeleteModelRequest {
+	int64 model_id = 1;
+	double lock_timeout_sec = 8;
+}
+
+message SetDefaultModelVersionRequest{
+	int64 model_id = 1;
+	int64 model_version_id = 2;
+	bool change = 3;
+}
+
+message GetDefaultModelVersionRequest{
+	int64 model_id = 1;
+}
+
+// ModelVersion
+message ModelVersion {
+	int64 id = 1;
+	int64 model_id = 2;
+	string worker_id = 3;
+	string version = 4;
+	string filename = 5;
+	google.protobuf.Timestamp load_date = 6;
+	google.protobuf.Timestamp create_date = 7;
+	google.protobuf.Timestamp update_date = 8;
+	google.protobuf.StringValue load_user = 9;
+	string create_user = 10;
+	string update_user = 11;
+	string status = 12;
+	google.protobuf.StringValue properties = 13;
+	google.protobuf.StringValue description = 14;
+}
+
+message ListModelVersionsRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListModelVersionsResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated ModelVersion model_versions = 2;
+}
+
+message CreateModelVersionRequest {
+	int64 model_id = 1;
+	string worker_id = 2;
+	string version = 3;
+	string filename = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	double lock_timeout_sec = 8;
+}
+
+message UploadModelVersionRequest {
+	int64 model_id = 1;
+	string version = 2;
+	string filename = 3;
+	google.protobuf.StringValue properties = 4;
+	google.protobuf.StringValue description = 5;
+	mirero.daq.domain.common.protos.DataInfo info = 6;
+	bytes buffer = 7;
+	double lock_timeout_sec = 8;
+}
+
+message DownloadModelVersionRequest {
+	int64 model_version_id = 1;
+	int64 chunk_size = 2;
+	double lock_timeout_sec = 3;
+}
+
+message DownloadModelVersionResponse {
+	int64 model_version_id = 1;
+	mirero.daq.domain.common.protos.DataInfo info = 2;
+	bytes buffer = 3;
+}
+
+message UpdateModelVersionRequest {
+	int64 id = 1;
+	int64 model_id = 2;
+	string version = 3;
+	string filename = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	double lock_timeout_sec = 7;
+}
+
+message DeleteModelVersionRequest {
+	int64 model_version_id = 1;
+	double lock_timeout_sec = 8;
+}
+
+message LoadModelRequest {
+	int64 model_id = 1;
+	google.protobuf.Int64Value model_version_id = 2;
+	string server_id = 3;
+	LoadModelOptions load_model_options = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	double lock_timeout_sec = 7;
+}
+
+message LoadModelOptions 
+{
+	google.protobuf.Int32Value cpu_count = 1;  // optional
+
+	google.protobuf.Int32Value gpu_count = 2;  // optional
+
+	// cpu memory
+	google.protobuf.Int64Value using_memory = 3; // optional
+
+	// Maximum time, in seconds, the TorchServe waits for a response from the model inference code, default: 120.
+	google.protobuf.Int32Value response_timeout = 5; //optional
+}
+
+message LoadModelResponse {
+	string load_msg = 1;
+}
+
+message UnloadModelVersionRequest {
+	string model_deploy_id = 1;
+}

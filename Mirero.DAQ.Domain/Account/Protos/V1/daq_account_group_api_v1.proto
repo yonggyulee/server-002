@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+package mirero.daq.domain.account.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Account.Protos.V1";
+
+service GroupService {
+  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse) {}
+  rpc CreateGroup(CreateGroupRequest) returns (Group) {}
+  rpc UpdateGroup(UpdateGroupRequest) returns (Group) {}
+  rpc DeleteGroup(DeleteGroupRequest) returns (google.protobuf.Empty) {}
+  rpc ListFeatures(ListFeaturesRequest) returns (ListFeaturesResponse) {}
+  rpc CreateSystem(CreateSystemRequest) returns (System) {}
+  rpc UpdateSystem(UpdateSystemRequest) returns (System) {}
+  rpc DeleteSystem(DeleteSystemRequest) returns (google.protobuf.Empty) {}
+  rpc ListSystems(ListSystemsRequest) returns (ListSystemsResponse) {}
+  rpc GetGroupFeatures(GetGroupFeaturesRequest) returns (GetGroupFeaturesResponse) {}
+  rpc UpdateGroupFeatures(UpdateGroupFeaturesRequest) returns (UpdateGroupFeaturesResponse) {}
+  rpc GetGroupSystems(GetGroupSystemsRequest) returns(GetGroupSystemsResponse){}
+  rpc UpdateGroupSystems(UpdateGroupSystemsRequest) returns(UpdateGroupSystemsResponse) {}
+}
+
+  message Group {
+    string id = 1;
+    string title = 2;
+    google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+message ListGroupsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListGroupsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Group groups = 2;
+}
+
+message CreateGroupRequest {
+  string id = 1;
+  string title = 2;
+  google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+message UpdateGroupRequest {
+  string id = 1;
+  string title = 2;
+  google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+message DeleteGroupRequest {
+  string group_id = 1;
+}
+
+message Feature {
+  string id = 1; // Output Only
+  string title = 2;
+  string category = 3;
+  bool enabled = 4;
+  google.protobuf.StringValue properties = 5;
+  google.protobuf.StringValue description = 6;
+}
+
+message ListFeaturesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListFeaturesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Feature features = 2;
+}
+
+message System{
+  string id = 1;
+  string title = 2;
+  google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+
+message CreateSystemRequest {
+  string id = 1;
+  string title = 2;
+  google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+message UpdateSystemRequest {
+  string id = 1;
+  string title = 2;
+  google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+message DeleteSystemRequest {
+  string system_id = 1;
+}
+
+message ListSystemsRequest{
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListSystemsResponse{
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated System systems = 2;
+}
+
+message GetGroupFeaturesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  string group_id = 2;
+}
+
+message GetGroupFeaturesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Feature features = 2; 
+}
+
+message UpdateGroupFeaturesRequest {
+  string group_id = 1;
+  repeated Feature features = 2;
+}
+
+message UpdateGroupFeaturesResponse {
+  repeated Feature features = 1;
+}
+
+message GetGroupSystemsRequest{
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  string group_id = 2;
+}
+
+message GetGroupSystemsResponse{
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated System systems = 2;
+}
+
+message UpdateGroupSystemsRequest {
+  string group_id = 1;
+  repeated System systems = 2;
+}
+
+message UpdateGroupSystemsResponse {
+  repeated System systems = 1;
+}

@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package mirero.daq.domain.gds.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+import "daq_gds_data.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos.V1";
+
+service VolumeService {
+  rpc ListVolumes(ListVolumesRequest) returns (ListVolumesResponse) {}
+  rpc CreateVolume(CreateVolumeRequest) returns (Volume) {}
+  rpc UpdateVolume(UpdateVolumeRequest) returns (Volume) {}
+  rpc DeleteVolume(DeleteVolumeRequest) returns (google.protobuf.Empty) {}
+}
+
+message Volume {
+  string id = 1;
+  string title = 2;
+  string uri = 3;  
+  string type = 4;
+  int64 usage = 5; 
+  int64 capacity = 6; 
+  google.protobuf.StringValue properties = 7;
+  google.protobuf.StringValue description = 8;
+}
+
+message ListVolumesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListVolumesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Volume volumes = 2;
+}
+
+message CreateVolumeRequest{
+  string id = 1;
+  string title = 2;
+  string uri = 3;  
+  string type = 4;
+  int64 capacity = 5;  
+  google.protobuf.StringValue properties = 6;
+  google.protobuf.StringValue description = 7;
+}
+
+message UpdateVolumeRequest{
+  string id = 1;
+  string title = 2;
+  string uri = 3;  
+  string type = 4;
+  int64 capacity = 5; 
+  google.protobuf.StringValue properties = 6;
+  google.protobuf.StringValue description = 7;
+}
+
+message DeleteVolumeRequest {
+  string volume_id = 1;
+}

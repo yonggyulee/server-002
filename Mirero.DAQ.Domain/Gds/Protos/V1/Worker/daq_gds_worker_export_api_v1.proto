@@ -1,0 +1,35 @@
+﻿syntax = "proto3";
+
+package mirero.daq.domain.gds.protos.v1.worker;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_gds_data.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos.V1.Worker";
+
+service ExportService {
+  rpc ExportToGds(ExportToGdsRequest) returns (stream mirero.daq.domain.gds.protos.Progress) {}
+  rpc ExportToOasis(ExportToOasisRequest) returns (stream mirero.daq.domain.gds.protos.Progress) {}
+}
+
+message ExportToGdsRequest {
+  string output_uri = 1;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 2;
+  bool skip_text = 3;
+  bool skip_property = 4;
+  bool skip_undef_cell = 5;
+}
+
+message ExportToOasisRequest {
+  string output_uri = 1;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 2;
+  bool skip_text = 3;
+  bool skip_property = 4;
+  bool skip_undef_cell = 5;
+  bool use_cblock = 6;
+  bool use_repeat_builder = 7;
+  bool use_name_table_cblock = 8;
+}

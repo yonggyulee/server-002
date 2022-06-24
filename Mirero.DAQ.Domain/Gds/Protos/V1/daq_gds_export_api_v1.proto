@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package mirero.daq.domain.gds.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+import "daq_gds_data.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos.V1";
+
+service ExportService {
+  rpc ExportToGds(ExportToGdsRequest) returns (stream ExportToGdsResponse) {}
+  rpc ExportToOasis(ExportToOasisRequest) returns (stream ExportToOasisResponse) {}
+}
+
+message ExportToGdsRequest {
+  int64 floor_plan_gds_id = 1;
+  string volume_id = 2;
+  string output_filename = 3;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 4;
+  bool skip_text = 5;
+  bool skip_property = 6;
+  bool skip_undef_cell = 7;
+}
+
+message ExportToGdsResponse {
+  int32 progress = 1;
+}
+
+message ExportToOasisRequest {
+  int64 floor_plan_gds_id = 1;
+  string volume_id = 2;
+  string output_filename = 3;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 4;
+  bool skip_text = 5;
+  bool skip_property = 6;
+  bool skip_undef_cell = 7;
+  bool use_cblock = 8;
+  bool use_repeat_builder = 9;
+  bool use_name_table_cblock = 10;
+}
+
+message ExportToOasisResponse {
+  int32 progress = 1;
+}

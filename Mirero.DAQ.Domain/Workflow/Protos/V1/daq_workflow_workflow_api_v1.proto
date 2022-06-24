@@ -1,0 +1,141 @@
+﻿syntax = "proto3";
+
+package mirero.daq.domain.workflow.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+import "daq_workflow_volume_api_v1.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Workflow.Protos.V1";
+
+service WorkflowService {
+	//Workflow
+	rpc ListWorkflows(ListWorkflowsRequest) returns (ListWorkflowsResponse) {}
+	rpc CreateWorkflow(CreateWorkflowRequest) returns (Workflow) {}
+	rpc UpdateWorkflow(UpdateWorkflowRequest) returns (Workflow) {}
+	rpc DeleteWorkflow(DeleteWorkflowRequest) returns (google.protobuf.Empty) {}
+
+	//WorkflowVersion
+	rpc ListWorkflowVersions(ListWorkflowVersionsRequest) returns (ListWorkflowVersionsResponse) {}
+	rpc CreateWorkflowVersion(CreateWorkflowVersionRequest) returns (WorkflowVersion) {}
+	rpc UpdateWorkflowVersion(UpdateWorkflowVersionRequest) returns (WorkflowVersion) {}
+	rpc DeleteWorkflowVersion(DeleteWorkflowVersionRequest) returns (google.protobuf.Empty) {}
+	rpc UploadWorkflowVersion(stream mirero.daq.domain.common.protos.IdentifiedStreamBuffer) returns (google.protobuf.Empty) {}
+	rpc DownloadWorkflowVersion(DownloadWorkflowVersionRequest) returns (stream mirero.daq.domain.common.protos.StreamBuffer) {}
+
+	rpc SetDefaultWorkflowVersion(SetDefaultWorkflowVersionRequest) returns (google.protobuf.Empty) {}
+	rpc ResetDefaultWorkflowVersion(ResetDefaultWorkflowVersionRequest) returns (google.protobuf.Empty) {}
+}
+
+// Workflow
+message Workflow {
+	int64 id = 1;
+	string type = 2;
+	string title = 3;
+	string create_user = 4;
+	string update_user = 5;
+	google.protobuf.Timestamp create_date = 6;
+    google.protobuf.Timestamp update_date = 7;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	google.protobuf.Int64Value default_workflow_version_id = 10;
+	repeated WorkflowVersion workflow_versions = 11;
+	string volume_id = 12;
+}
+
+message CreateWorkflowRequest {
+	string volume_id = 1;
+	string type = 2;
+	string title = 3;
+	google.protobuf.StringValue properties = 4;
+	google.protobuf.StringValue description = 5;
+}
+
+message UpdateWorkflowRequest {
+	int64 id = 1;
+	string volume_id = 2;
+	string type = 3;
+	string title = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+}
+
+message ListWorkflowsRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListWorkflowsResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Workflow workflows = 2;
+}
+
+message DeleteWorkflowRequest {
+	int64 workflow_id = 1;
+}
+
+// WorkflowVersion
+message WorkflowVersion {
+	int64 id = 1;
+	int64 workflow_id = 2;
+	string version = 3;
+	google.protobuf.StringValue data_status = 4;
+	string file_name = 5;
+	google.protobuf.StringValue data = 6;
+	string create_user = 7;
+	string update_user = 8;
+	google.protobuf.Timestamp create_date = 9;
+	google.protobuf.Timestamp update_date = 10;
+	google.protobuf.StringValue properties = 11;
+	google.protobuf.StringValue description = 12;
+	Workflow workflow = 13;
+}
+
+message CreateWorkflowVersionRequest {
+	int64 workflow_id = 1;
+	string version = 2;
+	string file_name = 3;
+	google.protobuf.StringValue data = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+}
+
+message UpdateWorkflowVersionRequest {
+	int64 id = 1;
+	int64 workflow_id = 2;
+	string version = 3;
+	string file_name = 4;
+	google.protobuf.StringValue data = 5;
+	google.protobuf.StringValue properties = 6;
+	google.protobuf.StringValue description = 7;
+}
+
+message ListWorkflowVersionsRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+	int64 workflow_id = 2;
+}
+
+message ListWorkflowVersionsResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated WorkflowVersion workflow_versions = 2;
+}
+
+message DeleteWorkflowVersionRequest {
+	int64 workflow_version_id = 1;
+}
+
+message DownloadWorkflowVersionRequest {
+	int64 workflow_version_id = 1;
+	int64 chunk_size = 2;
+}
+
+message SetDefaultWorkflowVersionRequest {
+	int64 workflow_id = 1;
+	int64 workflow_version_id = 2;
+}
+
+message ResetDefaultWorkflowVersionRequest {
+	int64 workflow_id = 1;
+}

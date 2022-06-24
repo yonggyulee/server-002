@@ -1,0 +1,408 @@
+syntax = "proto3";
+
+package mirero.daq.domain.dataset.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Dataset.Protos.V1";
+
+service GtDatasetService {
+  // GtDataset
+  rpc ListGtDatasets(ListGtDatasetsRequest) returns (ListGtDatasetsResponse) {}
+  
+  // ClassificationGtDataset
+  rpc ListClassificationGtDatasets(ListClassificationGtDatasetsRequest) returns (ListClassificationGtDatasetsResponse) {}
+  rpc GetClassificationGtDataset(GetClassificationGtDatasetRequest) returns (ClassificationGtDataset) {}
+  rpc CreateClassificationGtDataset(CreateClassificationGtDatasetRequest) returns (ClassificationGtDataset) {}
+  rpc UpdateClassificationGtDataset(UpdateClassificationGtDatasetRequest) returns (ClassificationGtDataset) {}
+  rpc DeleteClassificationGtDataset(DeleteClassificationGtDatasetRequest) returns (ClassificationGtDataset) {}
+
+  // ObjectDetectionGtDataset
+  rpc ListObjectDetectionGtDatasets(ListObjectDetectionGtDatasetsRequest) returns (ListObjectDetectionGtDatasetsResponse) {}
+  rpc GetObjectDetectionGtDataset(GetObjectDetectionGtDatasetRequest) returns (ObjectDetectionGtDataset) {}
+  rpc CreateObjectDetectionGtDataset(CreateObjectDetectionGtDatasetRequest) returns (ObjectDetectionGtDataset) {}
+  rpc UpdateObjectDetectionGtDataset(UpdateObjectDetectionGtDatasetRequest) returns (ObjectDetectionGtDataset) {}
+  rpc DeleteObjectDetectionGtDataset(DeleteObjectDetectionGtDatasetRequest) returns (ObjectDetectionGtDataset) {}
+
+  // SegmentationGtDataset
+  rpc ListSegmentationGtDatasets(ListSegmentationGtDatasetsRequest) returns (ListSegmentationGtDatasetsResponse) {}
+  rpc GetSegmentationGtDataset(GetSegmentationGtDatasetRequest) returns (SegmentationGtDataset) {}
+  rpc CreateSegmentationGtDataset(CreateSegmentationGtDatasetRequest) returns (SegmentationGtDataset) {}
+  rpc UpdateSegmentationGtDataset(UpdateSegmentationGtDatasetRequest) returns (SegmentationGtDataset) {}
+  rpc DeleteSegmentationGtDataset(DeleteSegmentationGtDatasetRequest) returns (SegmentationGtDataset) {}
+
+  // ClassificationGt
+  rpc ListClassificationGts(ListClassificationGtsRequest) returns (ListClassificationGtsResponse) {}
+  rpc GetClassificationGt(GetClassificationGtRequest) returns (ClassificationGt) {}
+  rpc CreateClassificationGt(CreateClassificationGtRequest) returns (ClassificationGt) {}
+  rpc UpdateClassificationGt(UpdateClassificationGtRequest) returns (ClassificationGt) {}
+  rpc DeleteClassificationGt(DeleteClassificationGtRequest) returns (ClassificationGt) {}
+
+  // ObjectDetectionGt
+  rpc ListObjectDetectionGts(ListObjectDetectionGtsRequest) returns (ListObjectDetectionGtsResponse) {}
+  rpc GetObjectDetectionGt(GetObjectDetectionGtRequest) returns (ObjectDetectionGt) {}
+  rpc CreateObjectDetectionGt(CreateObjectDetectionGtRequest) returns (ObjectDetectionGt) {}
+  rpc UpdateObjectDetectionGt(UpdateObjectDetectionGtRequest) returns (ObjectDetectionGt) {}
+  rpc DeleteObjectDetectionGt(DeleteObjectDetectionGtRequest) returns (ObjectDetectionGt) {}
+
+  // SegmentationGt
+  rpc ListSegmentationGts(ListSegmentationGtsRequest) returns (ListSegmentationGtsResponse) {}
+  rpc GetSegmentationGt(GetSegmentationGtRequest) returns (SegmentationGt) {}
+  rpc CreateSegmentationGt(CreateSegmentationGtRequest) returns (SegmentationGt) {}
+  rpc UpdateSegmentationGt(UpdateSegmentationGtRequest) returns (SegmentationGt) {}
+  rpc DeleteSegmentationGt(DeleteSegmentationGtRequest) returns (SegmentationGt) {}
+}
+
+//GtDataset
+message GtDataset {
+  int64 id = 1; // Output Only
+  string title = 2;
+  string directory_name = 3;
+  google.protobuf.Timestamp create_date = 4; // Output Only
+  google.protobuf.Timestamp update_date = 5; // Output Only
+  string create_user = 6;
+  string update_user = 7;
+  google.protobuf.StringValue properties = 8;
+  google.protobuf.StringValue description = 9;
+  string volume_id = 10;
+  int64 image_dataset_id = 11;
+  int64 class_code_set_id = 12;
+}
+
+message ListGtDatasetsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListGtDatasetsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated GtDataset gt_datasets = 2;
+}
+
+
+// ClassificationGtDataset
+message ClassificationGtDataset {
+  int64 id = 1; // Output Only
+  string title = 2;
+  string directory_name = 3;
+  google.protobuf.Timestamp create_date = 4; // Output Only
+  google.protobuf.Timestamp update_date = 5; // Output Only
+  string create_user = 6;
+  string update_user = 7;
+  google.protobuf.StringValue properties = 8;
+  google.protobuf.StringValue description = 9;
+  string volume_id = 10;
+  int64 image_dataset_id = 11;
+  int64 class_code_set_id = 12;
+}
+
+message ListClassificationGtDatasetsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListClassificationGtDatasetsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ClassificationGtDataset classification_gt_datasets = 2;
+}
+
+message GetClassificationGtDatasetRequest {
+  int64 classification_gt_dataset_id = 1;
+}
+
+message CreateClassificationGtDatasetRequest {
+	string title = 2;
+	string directory_name = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	string volume_id = 10;
+	int64 image_dataset_id = 11;
+	int64 class_code_set_id = 12;
+}
+
+message UpdateClassificationGtDatasetRequest {
+	int64 id = 1; // Output Only
+	string title = 2;
+	string directory_name = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	string volume_id = 10;
+	int64 image_dataset_id = 11;
+	int64 class_code_set_id = 12;
+}
+
+message DeleteClassificationGtDatasetRequest {
+  int64 classification_gt_dataset_id = 1;
+}
+
+// ObjectDetectionGtDataset
+message ObjectDetectionGtDataset {
+  int64 id = 1; // Output Only
+  string title = 2;
+  string directory_name = 3;
+  google.protobuf.Timestamp create_date = 4; // Output Only
+  google.protobuf.Timestamp update_date = 5; // Output Only
+  string create_user = 6;
+  string update_user = 7;
+  google.protobuf.StringValue properties = 8;
+  google.protobuf.StringValue description = 9;
+  string volume_id = 10;
+  int64 image_dataset_id = 11;
+  int64 class_code_set_id = 12;
+}
+
+message ListObjectDetectionGtDatasetsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListObjectDetectionGtDatasetsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ObjectDetectionGtDataset object_detection_gt_datasets = 2;
+}
+
+message GetObjectDetectionGtDatasetRequest {
+  int64 object_detection_gt_dataset_id = 1;
+}
+
+message CreateObjectDetectionGtDatasetRequest{
+	string title = 2;
+	string directory_name = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	string volume_id = 10;
+	int64 image_dataset_id = 11;
+	int64 class_code_set_id = 12;
+}
+
+message UpdateObjectDetectionGtDatasetRequest{
+	int64 id = 1; // Output Only
+	string title = 2;
+	string directory_name = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	string volume_id = 10;
+	int64 image_dataset_id = 11;
+	int64 class_code_set_id = 12;
+	double lock_timeout_sec = 13;
+}
+
+message DeleteObjectDetectionGtDatasetRequest {
+  int64 object_detection_gt_dataset_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+// SegmentationGtDataset
+message SegmentationGtDataset {
+  int64 id = 1; // Output Only
+  string title = 2;
+  string directory_name = 3;
+  google.protobuf.Timestamp create_date = 4; // Output Only
+  google.protobuf.Timestamp update_date = 5; // Output Only
+  string create_user = 6;
+  string update_user = 7;
+  google.protobuf.StringValue properties = 8;
+  google.protobuf.StringValue description = 9;
+  string volume_id = 10;
+  int64 image_dataset_id = 11;
+  int64 class_code_set_id = 12;
+}
+
+message ListSegmentationGtDatasetsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListSegmentationGtDatasetsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated SegmentationGtDataset segmentation_gt_datasets = 2;
+}
+
+message GetSegmentationGtDatasetRequest {
+  int64 segmentation_gt_dataset_id = 1;
+}
+
+message CreateSegmentationGtDatasetRequest{
+	string title = 2;
+	string directory_name = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	string volume_id = 10;
+	int64 image_dataset_id = 11;
+	int64 class_code_set_id = 12;
+}
+
+message UpdateSegmentationGtDatasetRequest{
+	int64 id = 1;
+	string title = 2;
+	string directory_name = 3;
+	google.protobuf.StringValue properties = 8;
+	google.protobuf.StringValue description = 9;
+	string volume_id = 10;
+	int64 image_dataset_id = 11;
+	int64 class_code_set_id = 12;
+	double lock_timeout_sec = 13;
+}
+
+message DeleteSegmentationGtDatasetRequest {
+  int64 segmentation_gt_dataset_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+// ClassificationGt
+message ClassificationGt {
+  int64 id = 1; // Output Only
+  google.protobuf.StringValue properties = 2;
+  google.protobuf.StringValue description = 3;
+  int64 dataset_id = 4;
+  int64 image_id = 5;
+  int64 class_code_id = 6;
+  google.protobuf.StringValue class_code_name = 7; // Output Only
+}
+
+message ListClassificationGtsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  int64 classification_gt_dataset_id = 2;
+  repeated int64 image_ids = 3;
+}
+
+message ListClassificationGtsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ClassificationGt classification_gts = 2;
+}
+
+message GetClassificationGtRequest {
+  int64 classification_gt_id = 1;
+}
+
+message CreateClassificationGtRequest{
+	google.protobuf.StringValue properties = 2;
+	google.protobuf.StringValue description = 3;
+	int64 dataset_id = 4;
+	int64 image_id = 5;
+	int64 class_code_id = 6;
+}
+
+message UpdateClassificationGtRequest{
+	int64 id = 1;
+	google.protobuf.StringValue properties = 2;
+	google.protobuf.StringValue description = 3;
+	int64 dataset_id = 4;
+	int64 image_id = 5;
+	int64 class_code_id = 6;
+}
+
+message DeleteClassificationGtRequest {
+  int64 classification_gt_id = 1;
+}
+
+// ObjectDetectionGt
+message ObjectDetectionGt {
+  int64 id = 1; // Output Only
+  string filename = 2;
+  string extension = 3;
+  google.protobuf.BytesValue buffer = 4;
+  google.protobuf.StringValue properties = 5;
+  google.protobuf.StringValue description = 6;
+  int64 dataset_id = 7;
+  int64 image_id = 8;
+}
+
+message ListObjectDetectionGtsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  double lock_timeout_sec = 12;
+}
+
+message ListObjectDetectionGtsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated ObjectDetectionGt object_detection_gts = 2;
+}
+
+message GetObjectDetectionGtRequest {
+  int64 object_detection_gt_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+message CreateObjectDetectionGtRequest{
+	string filename = 2;
+	string extension = 3;
+	google.protobuf.BytesValue buffer = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	int64 dataset_id = 7;
+	int64 image_id = 8;
+	double lock_timeout_sec = 12;
+}
+
+message UpdateObjectDetectionGtRequest{
+	int64 id = 1;
+	string filename = 2;
+	string extension = 3;
+	google.protobuf.BytesValue buffer = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	int64 dataset_id = 7;
+	int64 image_id = 8;
+	double lock_timeout_sec = 12;
+}
+
+message DeleteObjectDetectionGtRequest {
+  int64 object_detection_gt_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+// SegmentationGt
+message SegmentationGt {
+  int64 id = 1; // Output Only
+  string filename = 2;
+  string extension = 3;
+  google.protobuf.BytesValue buffer = 4;
+  google.protobuf.StringValue properties = 5;
+  google.protobuf.StringValue description = 6;
+  int64 dataset_id = 7;
+  int64 image_id = 8;
+}
+
+message ListSegmentationGtsRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+  double lock_timeout_sec = 12;
+}
+
+message ListSegmentationGtsResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated SegmentationGt segmentation_gts = 2;
+  double lock_timeout_sec = 12;
+}
+
+message GetSegmentationGtRequest {
+  int64 segmentation_gt_id = 1;
+  double lock_timeout_sec = 12;
+}
+
+message CreateSegmentationGtRequest{
+	string filename = 2;
+	string extension = 3;
+	google.protobuf.BytesValue buffer = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	int64 dataset_id = 7;
+	int64 image_id = 8;
+	double lock_timeout_sec = 12;
+}
+
+message UpdateSegmentationGtRequest{
+	int64 id = 1;
+	string filename = 2;
+	string extension = 3;
+	google.protobuf.BytesValue buffer = 4;
+	google.protobuf.StringValue properties = 5;
+	google.protobuf.StringValue description = 6;
+	int64 dataset_id = 7;
+	int64 image_id = 8;
+	double lock_timeout_sec = 12;
+}
+
+message DeleteSegmentationGtRequest {
+  int64 segmentation_gt_id = 1;
+  double lock_timeout_sec = 12;
+}

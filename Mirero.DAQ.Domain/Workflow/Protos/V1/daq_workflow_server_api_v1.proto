@@ -1,0 +1,73 @@
+﻿syntax = "proto3";
+
+package mirero.daq.domain.workflow.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Workflow.Protos.V1";
+
+service ServerService {
+	rpc ListServers(ListServersRequest) returns (ListServersResponse) {}
+	rpc CreateServer(CreateServerRequest) returns (Server) {}
+	rpc UpdateServer(UpdateServerRequest) returns (Server) {}
+	rpc DeleteServer(DeleteServerRequest) returns (google.protobuf.Empty) {}
+}
+
+message Server {
+	string id = 1;
+	string address = 2;
+	string os_type = 3;
+	string os_version = 4;
+	int32 cpu_count = 5;
+	int64 cpu_memory = 6;
+	google.protobuf.StringValue gpu_name = 7;
+	int32 gpu_count = 8;
+	int64 gpu_memory = 9;
+	google.protobuf.StringValue properties = 10;
+	google.protobuf.StringValue description = 11;
+}
+
+message CreateServerRequest {
+	string id = 1;
+	string address = 2;
+	string os_type = 3;
+	string os_version = 4;
+	int32 cpu_count = 5;
+	int64 cpu_memory = 6;
+	google.protobuf.StringValue gpu_name = 7;
+	int32 gpu_count = 8;
+	int64 gpu_memory = 9;
+	google.protobuf.StringValue properties = 10;
+	google.protobuf.StringValue description = 11;
+}
+
+message UpdateServerRequest {
+	string id = 1;
+	string address = 2;
+	string os_type = 3;
+	string os_version = 4;
+	int32 cpu_count = 5;
+	int64 cpu_memory = 6;
+	google.protobuf.StringValue gpu_name = 7;
+	int32 gpu_count = 8;
+	int64 gpu_memory = 9;
+	google.protobuf.StringValue properties = 10;
+	google.protobuf.StringValue description = 11;
+}
+
+message ListServersRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListServersResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Server servers = 2;
+}
+
+message DeleteServerRequest {
+	string server_id = 1;
+}

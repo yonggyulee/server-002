@@ -1,0 +1,51 @@
+﻿syntax = "proto3";
+
+package mirero.daq.domain.gds.protos.v1.worker;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_gds_data.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos.V1.Worker";
+
+service GdsService {
+  rpc LoadGds(LoadGdsRequest) returns (stream mirero.daq.domain.gds.protos.Progress) {}
+  rpc LoadOasis(LoadOasisRequest) returns (stream mirero.daq.domain.gds.protos.Progress) {}
+  rpc GetGdsProperty(google.protobuf.Empty) returns (GetGdsPropertyResponse) {}
+}
+
+message LoadGdsRequest {
+  string uri = 1;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 2;
+  bool skip_text = 3;
+  bool skip_property = 4;
+  bool skip_box = 5;
+  bool skip_node = 6;
+  bool convert_path_to_polygon = 7;
+  string index_in = 8;
+  string index_out = 9;
+}
+
+message LoadOasisRequest {
+  string uri = 1;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 2;
+  bool skip_text = 3;
+  bool skip_property = 4;
+  bool convert_path_to_polygon = 5;
+  int32 max_polygon_point_num = 6;
+  string index_in = 7;
+  string index_out = 8;
+}
+
+message GetGdsPropertyResponse {
+  repeated mirero.daq.domain.gds.protos.Layer layers = 1;
+  mirero.daq.domain.gds.protos.Int64Window bound_box = 2;
+  double dbu = 3;
+  int32 cell_count = 4;
+  int32 layer_count = 5;
+  int64 reference_count = 6;
+  int64 shape_count = 7;
+  int64 edge_count = 8;
+}

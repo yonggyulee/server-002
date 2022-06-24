@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package mirero.daq.domain.account.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Account.Protos.V1";
+
+service UserService {
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {}
+  rpc CreateUser(CreateUserRequest) returns (User) {}
+  rpc UpdateUser(UpdateUserRequest) returns (User) {}
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty) {}
+  rpc EnableUser(EnableUserRequest) returns (google.protobuf.Empty) {}
+  rpc DisableUser(DisableUserRequest) returns (google.protobuf.Empty) {}
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {}
+  rpc GetRole(GetRoleRequest) returns (GetRoleResponse) {}
+  rpc UpdateUserPrivilege(UpdateUserPrivilegeRequest) returns (UpdateUserPrivilegeResponse) {}
+  rpc ResetUserPrivilege(ResetUserPrivilegeRequest) returns (google.protobuf.Empty) {}
+  rpc ListPrivileges(ListPrivilegesRequest) returns (ListPrivilegesResponse) {}
+}
+
+
+// User
+message User {
+  string id =	1;
+  string name = 2;
+  string password = 3;
+  string department =	4;
+  google.protobuf.StringValue email = 5;
+  bool enabled = 6;
+  int64 access_failed_count =	7;
+  string group_id = 8;
+  string role_id =	9;
+  google.protobuf.Timestamp password_last_changed_date = 10;
+  google.protobuf.StringValue properties = 11;
+  google.protobuf.StringValue description	= 12;
+  repeated Privilege privileges = 13;
+  google.protobuf.Timestamp register_date = 14;
+}
+
+message ListUsersRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListUsersResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated User users = 2;
+}
+
+message CreateUserRequest {
+  string id =	1;
+  string name = 2;
+  string password = 3;
+  string department =	4;
+  google.protobuf.StringValue email = 5;
+  bool enabled = 6;
+  int64 access_failed_count =	7;
+  string group_id = 8;
+  string role_id =	9;
+  google.protobuf.Timestamp password_last_changed_date = 10;
+  google.protobuf.StringValue properties = 11;
+  google.protobuf.StringValue description	= 12;
+}
+
+message UpdateUserRequest {
+  string id =	1;
+  string name = 2;
+  string department = 3;
+  google.protobuf.StringValue email = 4;
+  bool enabled = 5;
+  int64 access_failed_count =	6;
+  string group_id = 7;
+  string role_id =	8;
+  google.protobuf.Timestamp password_last_changed_date = 9;
+  google.protobuf.StringValue properties = 10;
+  google.protobuf.StringValue description	= 11;
+}
+
+message DeleteUserRequest {
+  string user_id = 1;
+}
+
+message EnableUserRequest {
+  string user_id = 1;
+}
+
+message DisableUserRequest {
+  string user_id = 1;
+}
+
+message Role {
+  string id = 1; // Output Only
+  string title = 2;
+  google.protobuf.StringValue properties = 3;
+  google.protobuf.StringValue description = 4;
+}
+
+message ListRolesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListRolesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Role roles = 2;
+}
+
+message GetRoleRequest {
+  string role_id = 1;
+}
+
+message GetRoleResponse {
+  repeated Role roles = 1;
+}
+
+// Privilege
+message Privilege {
+  string id = 1; // Output Only
+  string title = 2;
+  string category = 3;
+  bool enabled = 4;
+  google.protobuf.StringValue properties = 5;
+  google.protobuf.StringValue description = 6;
+}
+
+message ListPrivilegesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListPrivilegesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Privilege privileges = 2;
+}
+
+message UpdateUserPrivilegeRequest {
+  string user_id = 1;
+  repeated Privilege privileges = 2; 
+}
+
+message UpdateUserPrivilegeResponse {
+  repeated Privilege privileges = 1;
+}
+
+message ResetUserPrivilegeRequest {
+  string user_id = 1;
+}

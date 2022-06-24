@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package mirero.daq.domain.gds.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+import "daq_gds_data.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos.V1";
+
+service ClipService {
+  rpc ClipLayer(ClipLayerRequest) returns (ClipLayerResponse) {}
+  rpc ClipLayers(ClipLayersRequest) returns (ClipLayersResponse) {}
+}
+
+message ClipLayerRequest {
+  int64 floor_plan_gds_id = 1;
+  mirero.daq.domain.gds.protos.DoubleWindow window = 2;
+  string layer = 3;
+  bool merge_layer = 4;
+}
+
+message ClipLayerResponse {
+  mirero.daq.domain.gds.protos.ClippedLayer clipped_layer = 1;
+}
+
+message ClipLayersRequest {
+  int64 floor_plan_gds_id = 1;
+  mirero.daq.domain.gds.protos.DoubleWindow window = 2;
+  repeated string layers = 3;
+  bool merge_layer = 4;
+}
+
+message ClipLayersResponse {
+  repeated mirero.daq.domain.gds.protos.ClippedLayer clipped_layers = 1;
+}

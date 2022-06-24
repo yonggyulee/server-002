@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package mirero.daq.domain.dataset.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+import "daq_dataset_image_dataset_api_v1.proto";
+import "daq_dataset_gt_dataset_api_v1.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Dataset.Protos.V1";
+
+service TrainingDataService {
+  // TrainingData
+  rpc ListSamplesStream(ListSamplesStreamRequest) returns (stream ListSamplesStreamResponse) {}
+  rpc ListClassificationDataStream(ListClassificationDataStreamRequest) returns (stream ListClassificationDataStreamResponse) {}
+  rpc ListObjectDetectionDataStream(ListObjectDetectionDataStreamRequest) returns (stream ListObjectDetectionDataStreamResponse) {}
+  rpc ListSegmentationDataStream(ListSegmentationDataStreamRequest) returns (stream ListSegmentationDataStreamResponse) {}
+}
+
+//TrainingData
+message ListSamplesStreamRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+	bool with_buffer = 2;
+	int64 total_count = 3;
+	double lock_timeout_sec = 12;
+}
+
+message ListSamplesStreamResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Sample samples = 4;
+}
+message ListClassificationDataStreamRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+	bool with_buffer = 2;
+	int64 total_count = 3;
+	double lock_timeout_sec = 12;
+}
+
+message ListClassificationDataStreamResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Image images = 3;
+	repeated ClassificationGt classification_gts = 4;
+}
+message ListObjectDetectionDataStreamRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+	bool with_buffer = 2;
+	int64 total_count = 3;
+	double lock_timeout_sec = 12;
+}
+
+message ListObjectDetectionDataStreamResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Image images = 3;
+	repeated ObjectDetectionGt object_detection_gts = 4;
+}
+message ListSegmentationDataStreamRequest {
+	mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+	bool with_buffer = 2;
+	int64 total_count = 3;
+	double lock_timeout_sec = 12;
+}
+
+message ListSegmentationDataStreamResponse {
+	mirero.daq.domain.common.protos.PageResult page_result = 1;
+	repeated Image images = 3;
+	repeated SegmentationGt segmentation_gts = 4;
+}

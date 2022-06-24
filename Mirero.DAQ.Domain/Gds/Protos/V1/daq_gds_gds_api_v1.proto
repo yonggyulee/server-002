@@ -1,0 +1,198 @@
+syntax = "proto3";
+
+package mirero.daq.domain.gds.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+import "daq_gds_data.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos.V1";
+
+service GdsService {
+  // Gds
+  rpc ListGdses(ListGdsesRequest) returns (ListGdsesResponse) {}
+  rpc CreateGds(CreateGdsRequest) returns (CreateGdsResponse) {}
+  rpc UploadGdsStream(stream UploadGdsStreamRequest) returns (google.protobuf.Empty) {}
+  rpc DownloadGdsStream(DownloadGdsStreamRequest) returns (stream mirero.daq.domain.common.protos.StreamBuffer) {}
+  rpc DeleteGds(DeleteGdsRequest) returns (google.protobuf.Empty) {}
+
+  // FloorPlan
+  rpc ListFloorPlans(ListFloorPlansRequest) returns (ListFloorPlansResponse) {}
+  rpc CreateFloorPlan(CreateFloorPlanRequest) returns (FloorPlan) {}
+  rpc UpdateFloorPlan(UpdateFloorPlanRequest) returns (FloorPlan) {}
+  rpc DeleteFloorPlan(DeleteFloorPlanRequest) returns (google.protobuf.Empty) {}
+  rpc LoadFloorPlan(LoadFloorPlanRequest) returns (stream LoadFloorPlanResponse) {}
+  rpc UnloadFloorPlan(UnloadFloorPlanRequest) returns (google.protobuf.Empty) {}
+
+  // History
+  rpc ListGdsLoadHistories(ListGdsLoadHistoriesRequest) returns (ListGdsLoadHistoriesResponse) {}
+}
+
+// Gds
+message Gds {
+  int64 id = 1;
+  string filename = 2;
+  string extension = 3;
+  int32 file_size = 4;
+  string status = 5;
+  int32 using_memory_size = 6;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 7;
+  google.protobuf.Int64Value start_x = 8;
+  google.protobuf.Int64Value start_y = 9;
+  google.protobuf.Int64Value end_x = 10;
+  google.protobuf.Int64Value end_y = 11;
+  double dbu = 12;
+  int32 cell_count = 13;
+  int32 layer_count = 14;
+  int64 reference_count = 15;
+  int64 edge_count = 16;
+  int64 shape_count = 17;
+  google.protobuf.Timestamp register_date = 18;
+  string register_user_name = 19;
+  google.protobuf.Timestamp update_date = 20;
+  google.protobuf.StringValue update_user_name = 21;
+  string properties = 22;
+  string description = 23;
+  string volume_id = 24;
+}
+
+message ListGdsesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListGdsesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated Gds gdses = 2;
+}
+
+message CreateGdsRequest {
+  string volume_id = 1;
+  string filename = 2;
+  string extension = 3;
+  string properties = 4;
+  string description = 5;
+}
+
+message CreateGdsResponse {
+  int64 gds_id = 1;
+}
+
+message UploadGdsStreamRequest {
+  int64 gds_id = 1;
+  bytes buffer = 2;
+  mirero.daq.domain.common.protos.DataInfo data_info = 3;
+}
+
+message DownloadGdsStreamRequest {
+  int64 gds_id = 1;
+  int64 chunk_size = 2;
+  double lock_timeout_sec = 3;
+}
+
+message DownloadGdsStreamResponse {
+  bytes buffer = 1;
+}
+
+message DeleteGdsRequest {
+  int64 gds_id = 1;
+  double lock_timeout_sec = 2;
+}
+
+// FloorPlan
+message FloorPlan {
+  int64 id = 1;
+  string title = 2;
+  google.protobuf.Timestamp register_date = 3;
+  google.protobuf.Timestamp update_date = 4;
+  string register_user = 5;
+  google.protobuf.StringValue update_user = 6;
+  string properties = 7;
+  string description = 8;
+  repeated FloorPlanGds floor_plan_gdses = 9;
+}
+
+message FloorPlanGds {
+  Gds gds = 1;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 2;
+  double offset_x = 3;
+  double offset_y = 4;
+}
+
+message ListFloorPlansRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListFloorPlansResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated FloorPlan floor_plans = 2;
+}
+
+message FloorPlanGdsData {
+  int64 gds_id = 1;
+  repeated mirero.daq.domain.gds.protos.Layer layers = 2;
+  double offset_x = 3;
+  double offset_y = 4;
+}
+
+message CreateFloorPlanRequest {
+  string title = 1;
+  string properties = 2;
+  string description = 3;
+  repeated FloorPlanGdsData gdses = 4;
+}
+
+message UpdateFloorPlanRequest {
+  int64 id = 1;
+  string title = 2;
+  string properties = 3;
+  string description = 4;
+  repeated FloorPlanGdsData gdses = 5;
+}
+
+message DeleteFloorPlanRequest {
+  int64 floor_plan_id = 1;
+  bool delete_gds = 2;
+}
+//worker = load
+message LoadFloorPlanRequest {
+  int64 floor_plan_id = 1;
+  int32 policy = 2; // 1 : no, 2 : load_date
+  bool force = 3;
+  mirero.daq.domain.gds.protos.LoadParameter load_parameter = 4;
+}
+
+message LoadFloorPlanResponse {
+  int64 floor_plan_id = 1;
+  int64 gds_id = 2;
+  int32 progress = 3;
+}
+
+message UnloadFloorPlanRequest {
+  int64 floor_plan_id = 1;
+  bool force = 2;
+}
+
+message GdsLoadHistory {
+  string server_id = 1;
+  int64 floor_plan_id = 2;
+  int64 gds_id = 3;
+  string gds_filename = 4;
+  string load_user_name = 5;
+  google.protobuf.StringValue unload_user_name = 6;
+  google.protobuf.Timestamp load_start_date = 7;
+  google.protobuf.Timestamp load_end_date = 8;
+  google.protobuf.Timestamp unload_date = 9;
+  mirero.daq.domain.gds.protos.LoadParameter load_parameter = 10;
+}
+
+message ListGdsLoadHistoriesRequest {
+  mirero.daq.domain.common.protos.QueryParameter query_parameter = 1;
+}
+
+message ListGdsLoadHistoriesResponse {
+  mirero.daq.domain.common.protos.PageResult page_result = 1;
+  repeated GdsLoadHistory histories = 2;
+}

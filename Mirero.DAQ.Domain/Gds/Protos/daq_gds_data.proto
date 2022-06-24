@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package mirero.daq.domain.gds.protos;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Gds.Protos";
+
+message Layer {
+  string name = 1;
+  string layer = 2;
+  string data_type = 3;
+}
+
+message DoubleWindow {
+  double min_x = 1;
+  double min_y = 2;
+  double max_x = 3;
+  double max_y = 4;
+}
+
+message Int64Window {
+  int64 min_x = 1;
+  int64 min_y = 2;
+  int64 max_x = 3;
+  int64 max_y = 4;
+}
+
+message Int32Window {
+  int32 min_x = 1;
+  int32 min_y = 2;
+  int32 max_x = 3;
+  int32 max_y = 4;
+}
+
+message Int32Vertex {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message Int32Polygon {
+  repeated Int32Vertex vertices = 1;
+}
+
+message ClippedLayer {
+  Int32Window window = 2;
+  repeated Int32Polygon polygons = 3;
+}
+
+message LoadParameter {
+  bool skip_text = 1;
+  bool skip_property = 2;
+  bool convert_path_to_polygon = 3;
+  string index_in = 4;
+  string index_out = 5;
+  bool skip_box = 6; // GDS
+  bool skip_node = 7; // GDS
+  int32 max_polygon_point_num = 8; // OASIS
+}
+
+message Progress {
+  int32 progress = 1;
+}

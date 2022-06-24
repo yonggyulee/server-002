@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package mirero.daq.domain.inference.protos.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "daq_common.proto";
+
+option csharp_namespace = "Mirero.DAQ.Domain.Inference.Protos.V1";
+
+service InferenceService {	
+	// Inference
+	rpc Prediction(PredictionRequest) returns (PredictionResponse) {}
+}
+
+message PredictionRequest {
+	string model_deploy_id = 1;
+	map<string, bytes> input = 2;
+}
+
+message PredictionResponse {
+	bytes prediction = 1;
+}

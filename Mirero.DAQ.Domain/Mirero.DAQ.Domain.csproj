@@ -1,0 +1,259 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Google.Protobuf" Version="3.19.4" />
+        <PackageReference Include="Grpc.Core.Api" Version="2.44.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.44.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="6.2.18" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="Common/Protos/daq_common.proto">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+            <ProtoRoot>Common/Protos</ProtoRoot>
+        </Protobuf>
+        <Protobuf Include="Account\Protos\V1\daq_account_group_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Account\Protos\V1\daq_account_sign_in_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Account\Protos\V1\daq_account_user_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Dataset\Protos\V1\daq_dataset_class_code_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Dataset\Protos\V1\daq_dataset_gt_dataset_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Dataset\Protos\V1\daq_dataset_image_dataset_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Dataset\Protos\V1\daq_dataset_training_data_api_v1.proto" AdditionalImportDirs="Common/Protos;Dataset/Protos/V1">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Dataset\Protos\V1\daq_dataset_volume_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\daq_gds_volume_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos; Gds/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\daq_gds_server_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos; Gds/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\daq_gds_gds_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos; Gds/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\daq_gds_clip_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos; Gds/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\daq_gds_export_api_v1.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <AdditionalImportDirs>Common/Protos; Gds/Protos</AdditionalImportDirs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\daq_gds_data.proto" Access="Public" GrpcServices="Both" ProtoCompile="True">
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <CompileOutputs>True</CompileOutputs>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\Worker\daq_gds_worker_clip_api_v1.proto" AdditionalImportDirs="Common/Protos;Gds/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\Worker\daq_gds_worker_export_api_v1.proto" AdditionalImportDirs="Common/Protos;Gds/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Gds\Protos\V1\Worker\daq_gds_worker_gds_api_v1.proto" AdditionalImportDirs="Common/Protos;Gds/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Inference\Protos\V1\daq_inference_volume_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Inference\Protos\V1\daq_inference_server_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Inference\Protos\V1\daq_inference_worker_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Inference\Protos\V1\daq_inference_model_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Inference\Protos\V1\daq_inference_inference_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Workflow\Protos\V1\daq_workflow_job_api_v1.proto" AdditionalImportDirs="Common/Protos;Workflow/Protos/V1">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Workflow\Protos\V1\daq_workflow_server_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Workflow\Protos\V1\daq_workflow_volume_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Workflow\Protos\V1\daq_workflow_worker_api_v1.proto" AdditionalImportDirs="Common/Protos;Workflow/Protos/V1">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Workflow\Protos\V1\daq_workflow_workflow_api_v1.proto" AdditionalImportDirs="Common/Protos;Workflow/Protos/V1">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Update\Protos\V1\daq_update_mpp_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Update\Protos\V1\daq_update_rc_api_v1.proto" AdditionalImportDirs="Common/Protos">
+            <GrpcServices>Both</GrpcServices>
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug\net6.0\</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+	    <Protobuf Include="Inference\Protos\V1\inference.proto">
+		    <GrpcServices>Both</GrpcServices>
+		    <Access>Public</Access>
+		    <ProtoCompile>True</ProtoCompile>
+		    <CompileOutputs>True</CompileOutputs>
+		    <OutputDir>obj\Debug\net6.0\</OutputDir>
+		    <Generator>MSBuild:Compile</Generator>
+	    </Protobuf>
+	    <Protobuf Include="Inference\Protos\V1\management.proto">
+		    <GrpcServices>Both</GrpcServices>
+		    <Access>Public</Access>
+		    <ProtoCompile>True</ProtoCompile>
+		    <CompileOutputs>True</CompileOutputs>
+		    <OutputDir>obj\Debug\net6.0\</OutputDir>
+		    <Generator>MSBuild:Compile</Generator>
+	    </Protobuf>
+    </ItemGroup>
+</Project>
